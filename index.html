@@ -1,44 +1,135 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Menu Saya</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warung Aneh Azzam</title>
+    <style>
+        /* --- STYLE (BIAR TAMPILAN CAKEP & TOMBOL GEDE) --- */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            margin: 0;
+            padding-top: 80px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white;
+            height: 100vh;
+        }
+        
+        .container { 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 40px; 
+            border-radius: 30px; 
+            display: inline-block; 
+            color: #333;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border: 4px solid #ff00ea;
+        }
+
+        .nav-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Tombol Panah Kiri Kanan */
+        .nav-btn {
+            font-size: 30px; 
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            border: none; 
+            background: #764ba2; 
+            color: white;
+            border-radius: 50%; 
+            transition: 0.3s;
+        }
+        .nav-btn:hover { background: #ff00ea; transform: scale(1.1); }
+
+        /* Tulisan Menu */
+        #tampilanMenu { 
+            font-size: 26px; 
+            min-width: 200px; 
+            margin: 0;
+            font-weight: bold;
+        }
+
+        /* Tombol Pesan Raksasa */
+        .btn-pesan {
+            display: block; 
+            margin: 0 auto; 
+            padding: 20px 40px;
+            font-size: 22px; 
+            font-weight: bold; 
+            color: white;
+            background-color: #25D366; 
+            border: none; 
+            border-radius: 50px;
+            cursor: pointer; 
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.5);
+            transition: 0.2s;
+        }
+        .btn-pesan:active { transform: scale(0.9); }
+
+        p { color: #666; font-size: 14px; margin-top: 15px; }
+    </style>
 </head>
 <body>
 
-    <h1 id="tampilanMenu">Menu Hari Ini: Kosong</h1>
-    <button onclick="pilihMenu()">Ganti Menu!</button>
+    <div class="container">
+        <h2>Warung Menu Spesial 😋</h2>
+        <hr>
+        
+        <div class="nav-row">
+            <button class="nav-btn" onclick="gantiMenu(-1)">❮</button>
+            
+            <h1 id="tampilanMenu">Femboy Satu 😋</h1>
+            
+            <button class="nav-btn" onclick="gantiMenu(1)">❯</button>
+        </div>
+
+        <button class="btn-pesan" onclick="orderWA()">PESAN SEKARANG</button>
+        <p>*Klik tombol hijau untuk konfirmasi pesanan</p>
+    </div>
 
     <script>
-        // --- BAGIAN JAWA SRIP (OTAKNYA) ---
-        let nomor = 0;
+        /* --- JAWA SRIP (LOGIKA PRANK) --- */
 
-        function pilihMenu() {
-            nomor = nomor + 1;
-            let layar = document.getElementById('tampilanMenu');
+        // Daftar Menu Request Kamu
+        let daftarMenu = [
+            'Femboy Satu 😋', 
+            'Mie Ayam 🤤', 
+            'Tomboy Satu 😋', 
+            'Rudal Hitam Satu 😰'
+        ];
+        
+        let index = 0;
 
-            if (nomor == 1) {
-                layar.innerHTML = 'Menu: Femboy Satu😋';
-                kirimWA('Femboy Satu😋');
-            } 
-            else if (nomor == 2) {
-                layar.innerHTML = 'Menu: Tomboy Satu😋';
-                kirimWA('Tomboy Satu😋');
-            } 
-            else if (nomor == 3) {
-                layar.innerHTML = 'Menu: Mie Ayam Satu🤤';
-                kirimWA('Mie Ayam Satu🤤');
-                nomor = 0; // Balik ke awal
-            }
+        // Fungsi buat geser-geser menu
+        function gantiMenu(arah) {
+            index = index + arah;
+
+            // Biar muter terus (looping)
+            if (index < 0) { index = daftarMenu.length - 1; }
+            if (index >= daftarMenu.length) { index = 0; }
+
+            document.getElementById('tampilanMenu').innerHTML = daftarMenu[index];
         }
 
-        function kirimWA(pesanan) {
-            let nomorWA = '6285387643367'; // <--- GANTI PAKE NOMOR KAMU!
-            let link = 'https://wa.me/' + nomorWA + '?text=' + encodeURIComponent('Halo, pesan: ' + pesanan);
+        // Fungsi Kirim WA (The Prank Moment)
+        function orderWA() {
+            let menuDipilih = daftarMenu[index];
             
-            // Kasih delay 1 detik biar orang sempet liat tulisannya ganti dulu
-            setTimeout(function() {
-                window.open(link, '_blank');
-            }, 1000);
+            // --- GANTI NOMOR DI BAWAH INI (Pake 62) ---
+            let nomorWA = '628XXXXXXXXXX'; 
+            
+            let pesan = 'Halo, saya mau pesan: ' + menuDipilih + '. Segera kirim ya!';
+            let linkWA = 'https://wa.me/' + nomorWA + '?text=' + encodeURIComponent(pesan);
+            
+            // Buka tab WA otomatis
+            window.open(linkWA, '_blank');
         }
     </script>
 
