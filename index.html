@@ -1,43 +1,46 @@
-<!--
-Created using JS Bin
-http://jsbin.com
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu Saya</title>
+</head>
+<body>
 
-Copyright (c) 2026 by anonymous (http://jsbin.com/befomuzeqo/1/edit)
+    <h1 id="tampilanMenu">Menu Hari Ini: Kosong</h1>
+    <button onclick="pilihMenu()">Ganti Menu!</button>
 
-Released under the MIT license: http://jsbin.mit-license.org
--->
-<meta name="robots" content="noindex">
-<h1 id="tampilanMenu">Menu Hari Ini: Kosong</h1>
+    <script>
+        // --- BAGIAN JAWA SRIP (OTAKNYA) ---
+        let nomor = 0;
 
-<button onclick="pilihMenu()">Ganti Menu!</button>
-<script id="jsbin-javascript">
-// Nama perintah: tampilPesan
-// 'teksYangDibawa' itu kotak sementara buat nampung tulisan dari HTML tadi
-function tampilPesan(teksYangDibawa) {
-  
-  // 1. Cari alamat tulisan di layar
-  let layar = document.getElementById('kotakPesan');
-  
-  // 2. Ganti isinya sesuai gambar yang diklik
-  layar.innerHTML = 'Kamu Memilih: ' + teksYangDibawa;
-  
-  // 3. Tambahan: Kasih suara pop-up (opsional)
-  alert('Pesanan Masuk: ' + teksYangDibawa);
-}
-function tampilPesan(pesanan) {
-  // 1. Masukin nomor WA kamu di sini (Pake kode negara 62, jangan 0)
-  let nomorWA = '6283142509109'; // Ganti pake nomor kamu ya!
+        function pilihMenu() {
+            nomor = nomor + 1;
+            let layar = document.getElementById('tampilanMenu');
 
-  // 2. Bikin kalimat pesannya biar rapi
-  let kalimat = 'Halo, saya mau pesan: ' + pesanan;
+            if (nomor == 1) {
+                layar.innerHTML = 'Menu: Nasi Goreng 🍳';
+                kirimWA('Nasi Goreng');
+            } 
+            else if (nomor == 2) {
+                layar.innerHTML = 'Menu: Mie Ayam 🍜';
+                kirimWA('Mie Ayam');
+            } 
+            else if (nomor == 3) {
+                layar.innerHTML = 'Menu: Es Teh 🍹';
+                kirimWA('Es Teh');
+                nomor = 0; // Balik ke awal
+            }
+        }
 
-  // 3. Gabungin jadi Link WA (encodeURIComponent biar spasi jadi kode aman)
-  let linkWA = 'https://wa.me/' + nomorWA + '?text=' + encodeURIComponent(kalimat);
+        function kirimWA(pesanan) {
+            let nomorWA = '6283142509109'; // <--- GANTI PAKE NOMOR KAMU!
+            let link = 'https://wa.me/' + nomorWA + '?text=' + encodeURIComponent('Halo, pesan: ' + pesanan);
+            
+            // Kasih delay 1 detik biar orang sempet liat tulisannya ganti dulu
+            setTimeout(function() {
+                window.open(link, '_blank');
+            }, 1000);
+        }
+    </script>
 
-  // 4. Perintah buat buka Tab Baru ke WA
-  window.open(linkWA, '_blank');
-  
-  // 5. Tetep update tulisan di layar web kamu (biar keren)
-  document.getElementById('kotakPesan').innerHTML = 'Membuka WhatsApp untuk: ' + pesanan;
-}
-</script>
+</body>
+</html>
